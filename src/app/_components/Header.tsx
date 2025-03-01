@@ -1,18 +1,26 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import { RxArrowLeft, RxDotsHorizontal } from "react-icons/rx";
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
+  const whitelistedPaths = ['/requests/create', '/requests/edit'];
+  const [showBack, setShowBack] = useState(false);
   
   const handleBack = () => {
     router.back();
   };
 
+  useEffect(() => {
+    setShowBack(whitelistedPaths.includes(pathname));
+  }, [pathname])
+
   return (
     <div className="w-[375px] p-4 flex items-center justify-between">
-      <button onClick={handleBack} className="invisible hover:pointer-cursor">
+      <button onClick={handleBack} className={"hover:pointer-cursor" + (!showBack && ' invisible')}>
         <RxArrowLeft className="w-[24px] h-[24px]" />
       </button>
 

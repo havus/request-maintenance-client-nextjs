@@ -1,28 +1,50 @@
 import { makeObservable } from "mobx";
 
 export type Urgency = "Urgent" | "Non Urgent" | "Emergency" | "Less Urgent";
-type Status = "Open" | "Resolved";
+export type Status = "Open" | "Resolved";
+
+export type FormState = {
+  title: string;
+  description: string;
+  urgency?: number | null;
+  status?: number | null;
+}
+
+export type FormStateKeys = keyof FormState;
 
 export class RequestMaintenance {
-  id: number;
+  id?: number;
   title: string;
+  description: string;
   urgency: Urgency;
   resolvedAt?: Date | null;
   createdAt: Date;
-  status: Status;
 
-  constructor(id: number, title: string, urgency: Urgency, createdAt: Date) {
+  constructor(
+    { id, title, description, urgency, createdAt }:
+      {
+        id?: number; 
+        title: string; 
+        description?: string | "";
+        urgency: Urgency;
+        createdAt: Date; 
+      }
+  ) {
     this.id = id;
     this.title = title;
     this.urgency = urgency;
+    this.description = description || "";
     this.createdAt = createdAt;
-    this.status = "Open";
 
     makeObservable(this);
   }
 
   resolveRequest() {
     this.resolvedAt = new Date();
-    this.status = "Resolved";
+    // this.status = "Resolved";
+  }
+
+  get status() {
+    return this.resolvedAt ? "Resolved" : "Open";
   }
 }

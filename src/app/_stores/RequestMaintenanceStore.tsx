@@ -18,9 +18,9 @@ export class RequestMaintenanceStore {
 
   fetchAllRequests = () => {
     this.requests = [
-      new RequestMaintenance(1, "Front Door Lock broken", "Urgent", new Date()),
-      new RequestMaintenance(2, "Tile Cracked", "Non Urgent", new Date()),
-      new RequestMaintenance(3, "Water Pipe Leaking", "Emergency", new Date()),
+      new RequestMaintenance({ id: 1, title: "Front Door Lock broken", urgency: "Urgent", createdAt: new Date() }),
+      new RequestMaintenance({ id: 2, title: "Tile Cracked", urgency: "Non Urgent", createdAt: new Date() }),
+      new RequestMaintenance({ id: 3, title: "Water Pipe Leaking", urgency: "Emergency", createdAt: new Date() }),
     ]
   }
 

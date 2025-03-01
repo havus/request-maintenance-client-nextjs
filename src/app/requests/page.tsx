@@ -1,5 +1,6 @@
 "use client"
 
+import { RxPlus } from "react-icons/rx";
 import MetricCard from "@comp/MetricCard";
 import RequestCard from "@comp/RequestCard";
 import { useRequestMaintenanceStore } from "@/app/_stores/RequestMaintenanceStore";
@@ -28,6 +29,13 @@ export default function Request() {
           <RequestCard data={req} key={`request-${i}`} />
         ))}
       </div>
+
+      <button
+        className="rounded-full p-[11px] absolute bottom-[-67px] right-0 hover:cursor-pointer bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A]"
+        onClick={() => router.push('/requests/create')}
+      >
+        <RxPlus className="w-[26px] h-[26px] text-white" />
+      </button>
     </div>
   )
 }
