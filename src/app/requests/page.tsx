@@ -3,8 +3,11 @@
 import MetricCard from "@comp/MetricCard";
 import RequestCard from "@comp/RequestCard";
 import { useRequestMaintenanceStore } from "@/app/_stores/RequestMaintenanceStore";
+import { useRouter } from 'next/navigation'
 
 export default function Request() {
+  const router = useRouter();
+  
   const {
     requests,
     openRequestsCount,
@@ -13,7 +16,7 @@ export default function Request() {
   } = useRequestMaintenanceStore();
 
   return (
-    <div className="">
+    <div className="relative">
       <div className="flex w-[343px] gap-[20px] justify-center">
         <MetricCard name="Open Requests" value={openRequestsCount}/>
         <MetricCard name="Urgent Requests" value={urgentRequestsCount}/>
