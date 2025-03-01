@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
+import Header from '@/app/_components/Header';
+import "@/app/_assets/globals.css";
+import { RequestMaintenanceProvider } from "@/app/_stores/RequestMaintenanceStore";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,9 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased flex flex-col items-center h-screen`}
       >
-        {children}
+        <RequestMaintenanceProvider>
+          <Header />
+          {children}
+        </RequestMaintenanceProvider>
       </body>
     </html>
   );
