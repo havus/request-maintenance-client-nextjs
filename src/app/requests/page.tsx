@@ -1,20 +1,67 @@
 "use client"
 
+import { useEffect } from "react";
 import { RxPlus } from "react-icons/rx";
 import MetricCard from "@comp/MetricCard";
 import RequestCard from "@comp/RequestCard";
 import { useRequestMaintenanceStore } from "@/app/_stores/RequestMaintenanceStore";
 import { useRouter } from 'next/navigation'
+import { observer } from "mobx-react";
+import { useLazyQuery, useSubscription } from '@apollo/client';
+import { GET_TASKS } from "@/app/_graphql/queries";
+import { RequestMaintenance, RequestMaintenanceResponse } from "@/app/_types/RequestMaintenance";
+import { TASK_CREATED, TASK_UPDATED } from "@/app/_graphql/subscription";
 
-export default function Request() {
+function Request() {
   const router = useRouter();
   
   const {
     requests,
+    replaceAllRequests,
     openRequestsCount,
     urgentRequestsCount,
     averageTimeToResolve,
   } = useRequestMaintenanceStore();
+
+  const [getRequestData] = useLazyQuery(
+    GET_TASKS,
+    {
+      variables: { offset: 0, limit: 100, filterBy: {} },
+      fetchPolicy: 'no-cache',
+    }
+  );
+
+  const { data: taskCreatedSubs } = useSubscription(TASK_CREATED);
+  const { data: tasUpdatedSubs } = useSubscription(TASK_UPDATED);
+
+  async function getAllRequests() {
+    let response : { data: { tasks: RequestMaintenanceResponse[] } } = await getRequestData();
+
+    replaceAllRequests(
+      response.data.tasks.map((task: RequestMaintenanceResponse) => {
+        return new RequestMaintenance({
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          urgency: task.urgency,
+          resolvedAt: task.resolvedAt ? new Date(task.resolvedAt) : null,
+          createdAt: new Date(task.createdAt),
+          updatedAt: new Date(task.updatedAt),
+        });
+      })
+    );
+  }
+
+  useEffect(() => {
+    getAllRequests();
+  }, []);
+
+  useEffect(() => {
+    if (taskCreatedSubs || tasUpdatedSubs) {
+      getAllRequests();
+    }
+  }, [taskCreatedSubs, tasUpdatedSubs]);
+
 
   return (
     <div className="relative w-[343px] md:w-[697px]">
@@ -39,3 +86,5 @@ export default function Request() {
     </div>
   )
 }
+
+export default observer(Request);

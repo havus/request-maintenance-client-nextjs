@@ -8,16 +8,7 @@ import { Label } from "@comp/Label";
 import { FormState, RequestMaintenance } from "@/app/_types/RequestMaintenance";
 import { translateUrgency, translateStatus } from "@/app/_utils/requestMaintenance";
 
-const initialState: FormState = {
-  title: "",
-  description: "",
-  urgency: null,
-  status: null,
-}
-
-// let formState: FormState = observable({...initialState});
-
-const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e: any) => void }) => {
+const RequestForm = ({ formState, handleSave }: { formState: FormState, handleSave: (e: any) => void }) => {
   const [triggerColUrg, setTriggerColUrg] = useState('text-[#DCDCDC]');
   const [triggerColStat, setTriggerColStat] = useState('text-[#DCDCDC]');
 
@@ -32,14 +23,6 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
     setTriggerColStat('text-[#404040]');
   }
 
-  const resetForm = () => {
-    console.log(formState.description);
-    // formState = observable({...initialState});
-
-    changeColTriggerUrg()
-    changeColTriggerStat()
-  };
-
   useEffect(() => {
     // if (data) {
     //   formState.title = data.title;
@@ -47,8 +30,6 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
     //   formState.urgency = Number(translateUrgency(data.urgency));
     //   formState.status = Number(translateStatus(data.status));
     // }
-
-    return () => { resetForm() };
   }, [])
 
   return (
@@ -120,7 +101,7 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
           <input
             id="title"
             type="text"
-            value={formState.title}
+            value={String(formState.title)}
             onChange={action((e) => formState.title = e.target.value )}
             placeholder="eg. Crack in plasterboard"
             className="placeholder:text-[#DCDCDC] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]"
@@ -135,7 +116,7 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
           <textarea
             id="description"
             onChange={action((e) => formState.description = e.target.value )}
-            value={formState.description}
+            value={String(formState.description)}
             placeholder="Description of your request"
             className="placeholder:text-[#DCDCDC] h-[188px] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]"
           />
@@ -147,11 +128,12 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
         onClick={action((e) => {
           e.preventDefault();
 
-          onClick(e);
-          resetForm();
+          handleSave(e);
+          changeColTriggerUrg();
+          changeColTriggerStat();
         })}
       >
-        Save {formState.description}
+        Save
       </button>
     </>
   )

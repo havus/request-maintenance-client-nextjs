@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import Header from '@/app/_components/Header';
 import "@/app/_assets/globals.css";
 import { RequestMaintenanceProvider } from "@/app/_stores/RequestMaintenanceStore";
+import { Provider as GraphqlProvider } from "@/app/_graphql/Provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,8 +36,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased flex flex-col items-center h-screen`}
       >
         <RequestMaintenanceProvider>
-          <Header />
-          {children}
+          <GraphqlProvider>
+            <Header />
+            {children}
+          </GraphqlProvider>
         </RequestMaintenanceProvider>
       </body>
     </html>

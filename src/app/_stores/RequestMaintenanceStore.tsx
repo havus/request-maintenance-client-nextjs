@@ -1,27 +1,21 @@
 "use client"
 
 import { makeAutoObservable } from "mobx";
-import { RequestMaintenance } from "@/app/_types/RequestMaintenance";
-import { ReactNode, createContext, useContext, useRef } from "react";
+import { ReactNode, createContext, useContext, useEffect, useRef } from "react";
+import { RequestMaintenance, RequestMaintenanceResponse } from "@/app/_types/RequestMaintenance";
 
 export class RequestMaintenanceStore {
   requests: RequestMaintenance[] = [] as RequestMaintenance[];
 
   constructor() {
-    this.fetchAllRequests();
     makeAutoObservable(this);
   }
 
   addRequest = (request: RequestMaintenance) => {
     this.requests.push(request);
   }
-
-  fetchAllRequests = () => {
-    this.requests = [
-      new RequestMaintenance({ id: 1, title: "Front Door Lock broken", urgency: "Urgent", createdAt: new Date() }),
-      new RequestMaintenance({ id: 2, title: "Tile Cracked", urgency: "Non Urgent", createdAt: new Date() }),
-      new RequestMaintenance({ id: 3, title: "Water Pipe Leaking", urgency: "Emergency", createdAt: new Date() }),
-    ]
+  replaceAllRequests = (requests: RequestMaintenance[]) => {
+    this.requests = requests;
   }
 
   get openRequestsCount() {
@@ -42,9 +36,9 @@ export class RequestMaintenanceStore {
       }
       return acc;
     }, 0);
-  
-    return totalResolveTime / resolvedRequests.length / (1000 * 60 * 60 * 24);
-  }  
+
+    return Math.round(totalResolveTime / resolvedRequests.length / (1000 * 60 * 60 * 24));
+  }
 }
 
 const RequestMaintenanceContext = createContext<RequestMaintenanceStore>(
