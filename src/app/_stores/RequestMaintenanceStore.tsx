@@ -1,8 +1,8 @@
 "use client"
 
 import { makeAutoObservable } from "mobx";
-import { ReactNode, createContext, useContext, useEffect, useRef } from "react";
-import { RequestMaintenance, RequestMaintenanceResponse } from "@/app/_types/RequestMaintenance";
+import { ReactNode, createContext, useContext, useRef } from "react";
+import { RequestMaintenance } from "@/app/_types/RequestMaintenance";
 
 export class RequestMaintenanceStore {
   requests: RequestMaintenance[] = [] as RequestMaintenance[];

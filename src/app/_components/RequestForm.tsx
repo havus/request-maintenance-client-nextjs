@@ -1,14 +1,16 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import { action, observable } from "mobx";
+import React, { useEffect, useState } from "react";
+import { action } from "mobx";
 import { observer } from "mobx-react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@comp/Select";
 import { Label } from "@comp/Label";
-import { FormState, RequestMaintenance } from "@/app/_types/RequestMaintenance";
-import { translateUrgency, translateStatus } from "@/app/_utils/requestMaintenance";
+import { FormState } from "@/app/_types/RequestMaintenance";
 
-const RequestForm = ({ formState, handleSave }: { formState: FormState, handleSave: (e: any) => void }) => {
+const RequestForm = (
+  { formState, handleSave }:
+    { formState: FormState, handleSave: (e: React.MouseEvent<HTMLElement>) => void }
+) => {
   const [triggerColUrg, setTriggerColUrg] = useState('text-[#DCDCDC]');
   const [triggerColStat, setTriggerColStat] = useState('text-[#DCDCDC]');
 
@@ -125,9 +127,7 @@ const RequestForm = ({ formState, handleSave }: { formState: FormState, handleSa
 
       <button
         className="w-[268px] mx-auto text-[18px] leading-[24px] bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A] text-white py-[12px] rounded-[8px] mt-[54px] md:mt-[46px] hover:cursor-pointer"
-        onClick={action((e) => {
-          e.preventDefault();
-
+        onClick={action((e: React.MouseEvent<HTMLElement>) => {
           handleSave(e);
           changeColTriggerUrg();
           changeColTriggerStat();

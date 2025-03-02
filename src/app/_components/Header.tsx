@@ -7,14 +7,14 @@ import { useRouter, usePathname } from 'next/navigation';
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  const whitelistedPaths = ['/requests/create', '/requests/edit'];
   const [showBack, setShowBack] = useState(false);
-  
+
   const handleBack = () => {
     router.back();
   };
 
   useEffect(() => {
+    const whitelistedPaths = ['/requests/create', '/requests/edit'];
     setShowBack(whitelistedPaths.includes(pathname));
   }, [pathname])
 

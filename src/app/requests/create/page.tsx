@@ -16,7 +16,7 @@ const initialState: FormState = {
   status: null,
 }
 
-let formState: FormState = observable({...initialState});
+const formState: FormState = observable({...initialState});
 
 const CreateRequest = () => {
   const router = useRouter();

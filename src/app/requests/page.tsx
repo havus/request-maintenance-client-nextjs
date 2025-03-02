@@ -30,12 +30,11 @@ function Request() {
       fetchPolicy: 'no-cache',
     }
   );
-
   const { data: taskCreatedSubs } = useSubscription(TASK_CREATED);
   const { data: tasUpdatedSubs } = useSubscription(TASK_UPDATED);
 
-  async function getAllRequests() {
-    let response : { data: { tasks: RequestMaintenanceResponse[] } } = await getRequestData();
+  const getAllRequests = async () => {
+    const response : { data: { tasks: RequestMaintenanceResponse[] } } = await getRequestData();
 
     replaceAllRequests(
       response.data.tasks.map((task: RequestMaintenanceResponse) => {
