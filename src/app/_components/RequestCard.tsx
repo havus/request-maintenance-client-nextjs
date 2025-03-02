@@ -1,5 +1,7 @@
 import { formatDate } from '@utils/dateUtils';
 import { RequestMaintenance, Urgency } from "@/app/_types/RequestMaintenance";
+import { useMutation } from '@apollo/client';
+import { UPDATE_TASK } from "@/app/_graphql/mutations";
 
 interface RequestCardProps {
   data: RequestMaintenance
@@ -23,6 +25,20 @@ export default function RequestCard({ data }: RequestCardProps) {
     (urgencyColor[data.urgency] && urgencyColor[data.urgency]),
   ].join(' ')
 
+  const [updateRequest] = useMutation(UPDATE_TASK);
+  const handleResolveButton = () => {
+    updateRequest(
+      {
+        variables: {
+          input: {
+            id: Number(data.id),
+            status: 1,
+          }
+        }
+      }
+    );
+  }
+
   return (
     <div className="w-full flex flex-col gap-[10px] bg-white p-[16px] rounded-[12px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]">
       <div className="flex justify-between">
@@ -40,7 +56,10 @@ export default function RequestCard({ data }: RequestCardProps) {
               <p className="text-[#FFF] text-[12px]">Resolved</p> 
             </div>
           ) : (
-            <button className='rounded-full bg-[#36A388] py-[3px] px-[8px] text-[#FFF] text-[12px] hover:cursor-pointer hover:bg-[#4aac93] active:bg-[#30927A]'>
+            <button
+              className='rounded-full bg-[#36A388] py-[3px] px-[8px] text-[#FFF] text-[12px] hover:cursor-pointer hover:bg-[#4aac93] active:bg-[#30927A]'
+              onClick={handleResolveButton}
+            >
               Mark as Resolved
             </button>
           )}

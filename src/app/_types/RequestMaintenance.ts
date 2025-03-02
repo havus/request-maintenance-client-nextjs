@@ -54,11 +54,6 @@ export class RequestMaintenance {
     makeObservable(this);
   }
 
-  resolveRequest() {
-    this.resolvedAt = new Date();
-    // this.status = "Resolved";
-  }
-
   get status(): Status {
     return this.resolvedAt ? "Resolved" : "Open";
   }

@@ -6,7 +6,7 @@ export const GET_TASKS = gql`
       offset: $offset,
       limit: $limit,
       filterBy: $filterBy,
-      sortBy: { field: "updatedAt", direction: DESC }
+      sortBy: { field: "createdAt", direction: DESC }
     ) {
       id
       title

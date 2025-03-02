@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import RequestForm from "@comp/RequestForm";
 import { FormState } from "@/app/_types/RequestMaintenance";
 import { useMutation } from '@apollo/client';
-import { CREATE_REQUEST_MAINTENANCE } from "@/app/_graphql/mutations";
+import { CREATE_TASK } from "@/app/_graphql/mutations";
 import { useRouter } from 'next/navigation'
 
 const initialState: FormState = {
@@ -20,15 +20,11 @@ let formState: FormState = observable({...initialState});
 
 const CreateRequest = () => {
   const router = useRouter();
-  const [addRequest] = useMutation(CREATE_REQUEST_MAINTENANCE);
+  const [addRequest] = useMutation(CREATE_TASK);
 
   const handleSaveButton = () => {
     const requestPayload = {...formState};
-    if (formState.status === 1) {
-      requestPayload.resolvedAt = new Date().toISOString()
-    }
     delete requestPayload.id;
-    delete requestPayload.status;
 
     addRequest({ variables: { input: requestPayload } });
 
