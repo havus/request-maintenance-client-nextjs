@@ -17,21 +17,21 @@ export default function Request() {
   } = useRequestMaintenanceStore();
 
   return (
-    <div className="relative">
-      <div className="flex w-[343px] gap-[20px] justify-center">
+    <div className="relative w-[343px] md:w-[697px]">
+      <div className="flex gap-[20px] justify-center">
         <MetricCard name="Open Requests" value={openRequestsCount}/>
         <MetricCard name="Urgent Requests" value={urgentRequestsCount}/>
         <MetricCard name="Average time (days) to resolve" value={averageTimeToResolve}/>
       </div>
 
-      <div className="w-[343px] mt-[-5px] pt-[20px] flex flex-col gap-[20px]">
+      <div className="mt-[-5px] pt-[20px] md:pt-[24px] flex flex-col gap-[20px]">
         {requests.map((req, i) => (
           <RequestCard data={req} key={`request-${i}`} />
         ))}
       </div>
 
       <button
-        className="rounded-full p-[11px] absolute bottom-[-67px] right-0 hover:cursor-pointer bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A]"
+        className="rounded-full p-[11px] absolute bottom-[-67px] md:bottom-[-78px] right-0 hover:cursor-pointer bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A]"
         onClick={() => router.push('/requests/create')}
       >
         <RxPlus className="w-[26px] h-[26px] text-white" />

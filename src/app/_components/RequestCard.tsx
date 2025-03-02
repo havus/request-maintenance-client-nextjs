@@ -24,7 +24,7 @@ export default function RequestCard({ data }: RequestCardProps) {
   ].join(' ')
 
   return (
-    <div className="flex flex-col gap-[10px] bg-white p-[16px] rounded-[12px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]">
+    <div className="w-full flex flex-col gap-[10px] bg-white p-[16px] rounded-[12px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]">
       <div className="flex justify-between">
         <p className="text-[#404040] font-medium text-[14px] leading-[20px]">{data.title}</p>
         <p className="text-[#A1AFC3] text-[12px] leading-[20px]">{formatDate(data.createdAt)}</p>

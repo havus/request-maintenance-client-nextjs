@@ -20,7 +20,7 @@ const CreateRequest = () => {
   }
 
   return (
-    <div className="w-[300] flex flex-col">
+    <div className="w-[300] md:w-[447px] flex flex-col">
       <RequestForm formState={formState} onClick={handleSaveButton}></RequestForm>
     </div>
   )

@@ -33,7 +33,7 @@ function SelectTrigger({
   const triggerClassNames = [
     'w-full hover:cursor-pointer flex items-center justify-between rounded-[12px] px-[16px] py-[14px] text-[13px]',
     'bg-white text-[#404040]',
-    'drop-shadow-[0_0_32px_rgba(110,113,145,0.12)]',
+    'drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]',
     className,
   ].join(' ');
 

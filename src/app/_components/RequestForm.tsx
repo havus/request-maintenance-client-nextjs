@@ -123,7 +123,7 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
             value={formState.title}
             onChange={action((e) => formState.title = e.target.value )}
             placeholder="eg. Crack in plasterboard"
-            className="placeholder:text-[#DCDCDC] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_0_32px_rgba(110,113,145,0.12)]"
+            className="placeholder:text-[#DCDCDC] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]"
           />
         </div>
 
@@ -137,13 +137,13 @@ const RequestForm = ({ formState, onClick }: { formState: FormState, onClick: (e
             onChange={action((e) => formState.description = e.target.value )}
             value={formState.description}
             placeholder="Description of your request"
-            className="placeholder:text-[#DCDCDC] h-[188px] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_0_32px_rgba(110,113,145,0.12)]"
+            className="placeholder:text-[#DCDCDC] h-[188px] bg-white text-[#404040] rounded-[12px] px-[16px] py-[14px] text-[13px] drop-shadow-[0_8px_32px_rgba(110,113,145,0.12)]"
           />
         </div>
       </div>
 
       <button
-        className="text-[18px] leading-[24px] bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A] text-white py-[12px] rounded-[8px] mt-[54px] hover:cursor-pointer"
+        className="w-[268px] mx-auto text-[18px] leading-[24px] bg-[#36A388] hover:bg-[#4aac93] active:bg-[#30927A] text-white py-[12px] rounded-[8px] mt-[54px] md:mt-[46px] hover:cursor-pointer"
         onClick={action((e) => {
           e.preventDefault();
 
