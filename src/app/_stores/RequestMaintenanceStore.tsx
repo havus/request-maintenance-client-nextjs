@@ -23,7 +23,7 @@ export class RequestMaintenanceStore {
   }
 
   get urgentRequestsCount() {
-    return this.requests.filter((request) => request.urgency === "Urgent").length;
+    return this.requests.filter((request) => request.status === "Open" && request.urgency === "Urgent").length;
   }
 
   get averageTimeToResolve() {
